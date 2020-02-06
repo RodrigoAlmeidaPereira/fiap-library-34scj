@@ -1,7 +1,11 @@
 package br.com.fiap.library.dto;
 
+import br.com.fiap.library.entity.Book;
+import lombok.Builder;
+
 import java.time.ZonedDateTime;
 
+@Builder
 public class BookDTO {
 
     private Integer id;
@@ -12,6 +16,16 @@ public class BookDTO {
     private AutorDTO autor;
 
     public BookDTO(){}
+
+    public static BookDTO fromBook(Book entity) {
+        return BookDTO.builder()
+                .id(entity.getId())
+                .dataLancamento(entity.getReleaseDate())
+                .ISBN(entity.getIsbm())
+                .titulo(entity.getTitle())
+                .quantidadeDePaginas(entity.getPages())
+                .build();
+    }
 
     public BookDTO(Integer id, String titulo, Integer quantidadeDePaginas, String ISBN, ZonedDateTime dataLancamento, AutorDTO autor) {
         this.id = id;

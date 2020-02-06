@@ -5,10 +5,12 @@ import br.com.fiap.library.dto.BookDTO;
 import br.com.fiap.library.dto.CreateBookDTO;
 import br.com.fiap.library.service.BookService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
+import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 @RequestMapping("books")
 public class BookController {
 
+    @Autowired
     private BookService service;
 
     @GetMapping
@@ -33,7 +36,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public BookDTO create(@RequestBody CreateBookDTO createBookDTO){
+    public BookDTO create(@Valid @RequestBody CreateBookDTO createBookDTO){
         return service.create(createBookDTO);
     }
 
